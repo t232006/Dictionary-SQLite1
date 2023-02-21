@@ -132,11 +132,11 @@ object dateformm: Tdateformm
       'group by(daterec)')
     Left = 96
     Top = 392
-    object dateqcountdaterec: TIntegerField
-      FieldName = 'count(daterec)'
-    end
     object dateqDateRec: TDateField
       FieldName = 'DateRec'
+    end
+    object dateqcountdaterec: TIntegerField
+      FieldName = 'count(daterec)'
     end
   end
 end

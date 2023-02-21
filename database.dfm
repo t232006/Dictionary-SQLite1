@@ -136,7 +136,7 @@ object DataModule2: TDataModule2
     Connection = ADOConnection
     Parameters = <>
     SQL.Strings = (
-      'update Dict set usersel=1 where')
+      'update Dict set usersel=true where')
     Left = 304
     Top = 160
   end

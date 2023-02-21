@@ -53,7 +53,7 @@ end;
 
 procedure Tdateformm.BitBtn1Click(Sender: TObject);
 var im:byte;
-    //myday:TDate;
+    myday:TDate;
     Smyday:string;
 
 begin
@@ -64,8 +64,10 @@ begin
       for im := 0 to dbgrid1.selectedrows.Count-1 do
         begin
           dbgrid1.DataSource.DataSet.GotoBookmark(dbgrid1.selectedrows.items[im]);
-          smyday:=dateq.Fields[0].AsString;
+          myday:=dateq.Fields[0].AsDateTime;
+          //smyday:=StringReplace(smyday,'.','-',[rfReplaceAll]);
           //smyday:=datetostring(myday);//вставляет нужный разделитель
+          DateTimeToString(smyday,'yyyy-mm-dd',myday);
           if im>0 then
 
           DM2.topicquery.SQL.Add('or');

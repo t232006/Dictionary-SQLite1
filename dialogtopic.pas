@@ -70,10 +70,8 @@ begin
 if DM2.topic.State in [dsedit, dsinsert]
 then
 begin
-
-
   DM2.top.Post;
-  DM2.Dict.Refresh;
+  //DM2.Dict.Refresh;
 end else
 begin
       if DelBut.Down then delbut.Down:=false else
