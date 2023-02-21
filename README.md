@@ -1,1 +1,1 @@
-# Dictionary SQLite1
+# Dictionary SQLite
