@@ -9,7 +9,7 @@ type
 private
 
 public
-    o1,o2:array [1..12] of worded; //массивы для задания для соответствий
+    o1,o2:array [1..12] of slpersl; //массивы для задания для соответствий
     constructor Create;
     function outword(_komp:byte; slovo:boolean): string;
     //procedure determ;

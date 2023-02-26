@@ -5,14 +5,14 @@ interface
 uses       SysUtils,  Controls, database, Dialogs, Graphics, basemanipulation;
 
 type
-  worded=record
+  {worded=record
     ind:word;
     slovo:string;
-    perevod:string;
+    perevod:string; }
     //topic:word;
     //date:TDate;
     //reit:byte;
-  end;
+  //end;
   SlPerSl=record
     slovo:string;
     perevod:string;
@@ -20,7 +20,7 @@ type
  otv=array[0..6] of SlPerSl; //массив,отвечающий за ответы
 
  TGeneral=class
-     v:array of worded;  //заполнение массива отдельной процедурой
+     v:array of SlPerSl;  //заполнение массива отдельной процедурой
      constructor Create(countrec:byte);
  end;
 
@@ -116,7 +116,7 @@ procedure zapmas (kl:word);
 begin
     with DM2.Dict do
   begin
-    v[kl].ind:=kl;
+    //v[kl].ind:=kl;
     v[kl].slovo:=Fields[1].AsString;
     v[kl].perevod:=fields[2].AsString;
     //v[kl].date:=fields[4].AsDateTime;

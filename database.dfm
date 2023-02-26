@@ -24,8 +24,11 @@ object DataModule2: TDataModule2
   object ADOConnection: TADOConnection
     Connected = True
     ConnectionString = 
-      'Provider=MSDASQL.1;Persist Security Info=False;Data Source=dicti' +
-      'onaryCopy'
+      'Provider=MSDASQL.1;Persist Security Info=False;Extended Properti' +
+      'es="DSN=dictionary;Database=H:\SQLiteBrowser\dictionary.db;StepA' +
+      'PI=0;SyncPragma=;NoTXN=0;Timeout=;ShortNames=0;LongNames=0;NoCre' +
+      'at=0;NoWCHAR=0;FKSupport=0;JournalMode=;OEMCP=0;LoadExt=;BigInt=' +
+      '0;JDConv=0;"'
     LoginPrompt = False
     Left = 432
     Top = 16
@@ -110,7 +113,6 @@ object DataModule2: TDataModule2
     Top = 88
   end
   object topic: TADOQuery
-    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     Parameters = <>
@@ -157,7 +159,6 @@ object DataModule2: TDataModule2
     Top = 304
   end
   object potential: TADODataSet
-    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     CommandText = 'select sum(Score) as sumScore from Dict where usersel=true'

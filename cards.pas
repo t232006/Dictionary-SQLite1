@@ -4,7 +4,7 @@ interface
 uses lessons;
 type TCards = class(TGeneral)
 public
-    o1,o2:array [1..12] of worded;
+    o1,o2:array [1..12] of SlPerSl;
    constructor Create(cou:byte);
 end;
 

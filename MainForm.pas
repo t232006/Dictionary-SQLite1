@@ -32,7 +32,6 @@ type
     DBMemo2: TDBMemo;
     TabSheet2: TTabSheet;
     Label2: TLabel;
-    rg1: TRadioGroup;
     TabSheet3: TTabSheet;
     Label3: TLabel;
     rg2: TRadioGroup;
@@ -106,7 +105,6 @@ type
     Label13: TLabel;
     Label14: TLabel;
     Label15: TLabel;
-    Label17: TLabel;
     sg: TStringGrid;
     Label16: TLabel;
     Label18: TLabel;
@@ -129,7 +127,6 @@ type
     right6: TLabel;
     nexttack: TAction;
     StaticText3: TStaticText;
-    Memo1: TMemo;
     Memo2: TMemo;
     Button2: TSpeedButton;
     TabSheet9: TTabSheet;
@@ -149,7 +146,6 @@ type
     N12: TMenuItem;
     Dpot: TProgressBar;
     GridPanel1: TGridPanel;
-    Shape1: TShape;
     ShTableFontColor: TShape;
     Frame31: TFrame3;
     ShScaleColor: TShape;
@@ -160,28 +156,8 @@ type
     LaBottomCard: TPanel;
     Frame42: TFrame4;
     Panel1: TPanel;
-    selspot: TCheckBox;
-    deepbut: TSpeedButton;
-    lb: TLabel;
-    canedit: TSpeedButton;
-    Label7: TLabel;
-    SpeedButton10: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
-    rg: TRadioGroup;
-    search: TLabeledEdit;
-    SpBut8: TSpeedButton;
-    DBText1: TDBText;
-    Image1: TImage;
-    Image2: TImage;
-    Panel2: TPanel;
-    Panel3: TPanel;
-    Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
-    cardActivate: TCheckBox;
     Timer1: TTimer;
     N11: TMenuItem;
     N13: TMenuItem;
@@ -190,7 +166,6 @@ type
     Label25: TLabel;
     st2: TLabel;
     st1: TLabel;
-    Label26: TLabel;
     Label28: TLabel;
     Label30: TLabel;
     Label31: TLabel;
@@ -202,6 +177,28 @@ type
     Label37: TLabel;
     Label38: TLabel;
     Label39: TLabel;
+    rg1: TRadioGroup;
+    Memo1: TMemo;
+    canedit: TSpeedButton;
+    cardActivate: TCheckBox;
+    DBText1: TDBText;
+    deepbut: TSpeedButton;
+    Image1: TImage;
+    Image2: TImage;
+    Label7: TLabel;
+    lb: TLabel;
+    rg: TRadioGroup;
+    search: TLabeledEdit;
+    selspot: TCheckBox;
+    SpBut8: TSpeedButton;
+    SpeedButton10: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    Label17: TLabel;
+    Label26: TLabel;
+    baseFolder: TLabel;
     procedure rg1Click(Sender: TObject);
     procedure rg2Click(Sender: TObject);
     procedure InitSlovoPer;
@@ -302,16 +299,16 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ChShowScaleClick(Sender: TObject);
     procedure ShCardColorMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure Shape1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure Frame42Edit1Change(Sender: TObject);
     procedure cardActivateClick(Sender: TObject);
     procedure Fill4Status;
     procedure N11Click(Sender: TObject);
     procedure N13Click(Sender: TObject);
+    //procedure GridPanel1Click(Sender: TObject);
+    procedure baseFolderClick(Sender: TObject);
+
   private
     { Private declarations }
-
     procedure YesNoContinue(b:boolean);
     procedure Keynottab (var msg:TCMDialogKey); message CM_DialogKey;
     function memonumber (name:string):byte;
@@ -326,6 +323,7 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       RowBrushColor2:Tcolor;
     end;
   end;
+  procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
 
 var
   Form1: TForm1;
@@ -425,6 +423,13 @@ begin
   end;
 end;
 
+procedure TForm1.baseFolderClick(Sender: TObject);
+begin
+    if od1.Execute then
+      baseFolder.Caption:=od1.FileName;
+      InstallReg(baseFolder.Caption);
+end;
+
 procedure Tform1.ChangeColrigth(p:boolean);
 begin
     if p then
@@ -469,7 +474,7 @@ end;
 procedure Tform1.InitSlovoPer;
 //var k:byte;
 begin
-  test:=TTest.create(6);
+
   test.slovoper(o,pravotv);
   st1.Caption:=o[0].slovo;
   Rg1.ItemIndex:=-1;
@@ -550,15 +555,17 @@ begin
   case  PageControl1.ActivePageIndex of
   0:
   begin
-    baserefrash;
+    //baserefrash;
   end;
   1:
   begin
+      test:=TTest.create(6);
       InitSlovoPer;
   end;
   2:
   begin
-     InitPerevodSlo;
+      test:=TTest.create(6);
+      InitPerevodSlo;
   end;
   3:
   begin
@@ -1058,16 +1065,6 @@ procedure TForm1.ShScaleColorMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   n4.Click;
-end;
-
-procedure TForm1.Shape1MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-    if ColorDialog1.Execute then
-      begin
-      color:=ColorDialog1.Color;
-      shape1.Brush.Color:=color;
-      end;
 end;
 
 procedure TForm1.ShCardColorMouseDown(Sender: TObject; Button: TMouseButton;

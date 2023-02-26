@@ -349,9 +349,6 @@ Coordinates=761,1391,40,36
 [Frame27.Panel]
 Coordinates=1141,570,102,58
 
-[rg1]
-Coordinates=191,570,49,58
-
 [Frame29.panel2]
 Coordinates=1473,10,108,58
 
@@ -447,7 +444,7 @@ Coordinates=1473,502,64,58
 Coordinates=131,502,53,58
 
 []
-Coordinates=275,752,40,36
+Coordinates=191,570,49,58
 
 [StBar]
 Coordinates=792,298,78,58

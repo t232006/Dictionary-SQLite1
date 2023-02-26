@@ -14,6 +14,10 @@ type
     Edit1: TEdit;
     procedure Image2Click(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Image2MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     const fmax:byte=30;
     const fmin:byte=2;
@@ -33,12 +37,26 @@ begin
   edit1.Text:=cur;
 end;
 
+procedure TFrame4.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+(sender as TImage).Width:=21;
+  (sender as TImage).Height:=21;
+end;
+
 procedure TFrame4.Image2Click(Sender: TObject);
 var cur:variant;
 begin
   cur:=edit1.Text;
   if cur<fmax then inc(cur);
   edit1.Text:=cur;
+end;
+
+procedure TFrame4.Image2MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+   (sender as TImage).Width:=17;
+  (sender as TImage).Height:=17;
 end;
 
 end.
