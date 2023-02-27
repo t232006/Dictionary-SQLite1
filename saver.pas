@@ -69,7 +69,7 @@ end;
 procedure saveForm;
 var f:TIniFile;
 begin
-    f:=TIniFile.Create('init.ini');
+    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) + 'init.ini');
     try
     with form1 do
     begin
