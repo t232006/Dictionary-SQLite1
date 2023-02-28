@@ -24,11 +24,8 @@ object DataModule2: TDataModule2
   object ADOConnection: TADOConnection
     Connected = True
     ConnectionString = 
-      'Provider=MSDASQL.1;Persist Security Info=False;Extended Properti' +
-      'es="DSN=dictionary;Database=H:\SQLiteBrowser\dictionary.db;StepA' +
-      'PI=0;SyncPragma=;NoTXN=0;Timeout=;ShortNames=0;LongNames=0;NoCre' +
-      'at=0;NoWCHAR=0;FKSupport=0;JournalMode=;OEMCP=0;LoadExt=;BigInt=' +
-      '0;JDConv=0;"'
+      'Provider=MSDASQL.1;Persist Security Info=False;Data Source=dicti' +
+      'onary'
     LoginPrompt = False
     Left = 432
     Top = 16

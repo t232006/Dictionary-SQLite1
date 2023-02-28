@@ -48,6 +48,7 @@ type
       DisplayText: Boolean);
     procedure DictUserselGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure ReloadConnection;
   private
     { Private declarations }
   public
@@ -65,6 +66,13 @@ uses MainForm;
 
 
 {$R *.dfm}
+procedure TDataModule2.ReloadConnection;
+begin
+  ADOConnection.Connected:=false;
+  ADOConnection.Connected:=true;
+  Dict.Active:=true;
+  Top.Active:=true;
+end;
 
 procedure TDataModule2.DictUserselGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);

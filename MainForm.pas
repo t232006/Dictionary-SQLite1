@@ -9,7 +9,8 @@ uses
   Buttons, frame, helpdict, Mask, ActnList, ActnMan, ActnColorMaps, ImgList,
   OleCtrls, SHDocVw, Gauges, thread2, DdeMan, Menus, System.Actions,
   basemanipulation, cards, RowColorsUnit, saver, deepSearch, ToExcelUnit,
-  squares, Vcl.PlatformDefaultStyleActnCtrls, UpDownHor, remindcard;
+  squares, Vcl.PlatformDefaultStyleActnCtrls, UpDownHor, remindcard, reginstaller,
+  registry;
 
 type
   TForm1 = class(TForm)
@@ -323,7 +324,7 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       RowBrushColor2:Tcolor;
     end;
   end;
-  procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
+  //procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
 
 var
   Form1: TForm1;
@@ -426,8 +427,15 @@ end;
 procedure TForm1.baseFolderClick(Sender: TObject);
 begin
     if od1.Execute then
+    try
       baseFolder.Caption:=od1.FileName;
       InstallReg(baseFolder.Caption);
+      DM2.ReloadConnection;
+    except
+      on ERegistryException do
+        ShowMessage('Необходимы права администратора для данного действия');
+    end;
+
 end;
 
 procedure Tform1.ChangeColrigth(p:boolean);

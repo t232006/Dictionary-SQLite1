@@ -1,7 +1,7 @@
 unit saver;
 
 interface
-uses VCL.Graphics, Classes, Sysutils, System.IniFiles, Frame;
+uses VCL.Graphics, Classes, Sysutils, System.IniFiles, Frame ;
 
 
    procedure saveForm;
@@ -15,18 +15,18 @@ procedure loadForm;
     fk:byte;
     f:TIniFile;
 begin
-    f:=TIniFile.Create('Init.ini');
+    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0))) + 'init.ini');
     try
     with form1 do
       begin
 
-      Grid.Font.Size:=f.ReadInteger('Font','GridFontSize',10);
+      Grid.Font.Size:=f.ReadInteger('Table','GridFontSize',10);
       Frame42.Edit1.Text:=inttostr(Grid.Font.Size);
-      Grid.Font.Color:=f.ReadInteger('Font','GridFontColor',0);
+      Grid.Font.Color:=f.ReadInteger('Table','GridFontColor',0);
       ShTableFontColor.Brush.Color:=Grid.Font.Color;
-      TableGreedRow.RowBrushColor1:=f.ReadInteger('Font','Row1Color',-16777208);
+      TableGreedRow.RowBrushColor1:=f.ReadInteger('Table','Row1Color',-16777208);
       Frame31.Shape1.Brush.Color:=TableGreedRow.RowBrushColor1;
-      TableGreedRow.RowBrushColor2:=f.ReadInteger('Font','Row2Color',-16777208);
+      TableGreedRow.RowBrushColor2:=f.ReadInteger('Table','Row2Color',-16777208);
       Frame31.Shape2.Brush.Color:=TableGreedRow.RowBrushColor2;
 
       color_scale:=f.ReadInteger('Scale','color_scale',0);
@@ -60,6 +60,7 @@ begin
              2:Form1.N10Click(Form1);//n10.checked:=true;
              3:Form1.N12Click(Form1);//n12.checked:=true;
            end;
+       basefolder.Caption:=f.ReadString('database','database',ExtractFileDir(paramstr(0)+'/db/dictionary.db'));
       end;
     finally
     f.Free;
@@ -67,9 +68,9 @@ begin
 end;
 
 procedure saveForm;
-var f:TIniFile;
+var f:TIniFile; //s:string;
 begin
-    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) + 'init.ini');
+    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0))) + 'init.ini');
     try
     with form1 do
     begin

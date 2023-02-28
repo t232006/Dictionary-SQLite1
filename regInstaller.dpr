@@ -1,15 +1,14 @@
-library regInstaller;
+unit regInstaller;
 
+interface
 uses
   System.SysUtils,
   System.Classes,
   registry,
   winApi.Windows;
+procedure InstallReg(filename:string);
 
-{$APPTYPE CONSOLE}
-
-{$R *.res}
-
+implementation
 procedure InstallReg(filename:string);
 var reg:TRegistry;  key1, key2:string;
 begin
@@ -34,9 +33,4 @@ begin
       Destroy;
     end;
 end;
-exports InstallReg;
-
-{$R *.res}
-
-begin
 end.

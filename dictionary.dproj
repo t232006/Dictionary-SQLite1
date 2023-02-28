@@ -153,6 +153,7 @@
             <Form>Card</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="regInstaller.pas"/>
         <None Include="init.ini"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -217,7 +218,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="New1.ini" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="init.ini" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

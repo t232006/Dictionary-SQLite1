@@ -24,7 +24,8 @@ uses
   dateform in 'dateform.pas' {dateformm},
   deepSearch in 'deepSearch.pas',
   cards in 'cards.pas',
-  RemindCard in 'RemindCard.pas' {Card};
+  RemindCard in 'RemindCard.pas' {Card},
+  regInstaller in 'regInstaller.pas';
 
 {$R *.res}
 
