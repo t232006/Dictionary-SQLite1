@@ -324,7 +324,7 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       RowBrushColor2:Tcolor;
     end;
   end;
-  //procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
+  procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
 
 var
   Form1: TForm1;
@@ -431,6 +431,8 @@ begin
       baseFolder.Caption:=od1.FileName;
       InstallReg(baseFolder.Caption);
       DM2.ReloadConnection;
+      if messagedlg('Смена базы данных требует перезагрузки приложения. Закрыть приложение?',mtConfirmation,[mbYes, mbNo],0)=mrYes then
+        close;
     except
       on ERegistryException do
         ShowMessage('Необходимы права администратора для данного действия');
@@ -760,7 +762,6 @@ End;
 procedure TForm1.m7DragDrop(Sender, Source: TObject; X, Y: Integer);
 begin
     DragDrop(sender, source, true);
-
 end;
 
 //-----------------------------------------------------------
@@ -769,7 +770,6 @@ procedure TForm1.m1DragDrop(Sender, Source: TObject; X, Y: Integer);
 begin
    DragDrop(sender, source, false);
 end;
-
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
@@ -1503,7 +1503,7 @@ end;
 procedure TForm1.FormPaint(Sender: TObject);
 begin
 
-   if PageControl1.ActivePageIndex=7 then
+   if PageControl1.ActivePageIndex=8 then
    begin
      try
      StBar.panels[0].Text:='Найдено новых слов: '+inttostr(DM2.synch.RecordCount);

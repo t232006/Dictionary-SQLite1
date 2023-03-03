@@ -96,6 +96,7 @@ begin
       if n10.checked then f.WriteInteger('Bar','Radio',2) else
       if n12.checked then f.WriteInteger('Bar','Radio',3);
 
+      f.WriteString('database','database',form1.baseFolder.Caption);
     end;
     finally
 

@@ -72,6 +72,8 @@ begin
   ADOConnection.Connected:=true;
   Dict.Active:=true;
   Top.Active:=true;
+  Topic.Active:=true;
+  selectsel.Active:=true;
 end;
 
 procedure TDataModule2.DictUserselGetText(Sender: TField; var Text: string;

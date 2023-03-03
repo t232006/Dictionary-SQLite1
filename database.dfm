@@ -110,6 +110,7 @@ object DataModule2: TDataModule2
     Top = 88
   end
   object topic: TADOQuery
+    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     Parameters = <>
@@ -147,6 +148,7 @@ object DataModule2: TDataModule2
     Top = 304
   end
   object selectsel: TADOQuery
+    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     Parameters = <>
