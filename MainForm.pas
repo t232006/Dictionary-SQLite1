@@ -792,12 +792,9 @@ end;
 procedure TForm1.searchKeyPress(Sender: TObject; var Key: Char);
 begin
   if ord(key)<128 then
-  {DM2.Dict.IndexName:='TranslationInd' else //если русская буква
-  DM2.Dict.IndexName:='WordInd'; //если латинская буква
-  DM2.Dict.Seek(search.Text);}
-  DM2.Dict.Locate('Translation',Search.Text+key,[loPartialKey, loCaseInsensitive])
+    DM2.Dict.Locate('Translation',Search.Text+key,[loPartialKey, loCaseInsensitive])
   else
-  DM2.Dict.Locate('Word',Search.Text+key,[loPartialKey, loCaseInsensitive])
+    DM2.Dict.Locate('Word',Search.Text+key,[loPartialKey, loCaseInsensitive])
 end;
 
 procedure TForm1.ComboBox1CloseUp(Sender: TObject);
@@ -984,8 +981,8 @@ end;
 procedure TForm1.rgClick(Sender: TObject);
   procedure delfilt(t:boolean);
    begin
-    if t then system.Delete(filtr,pos('phrase=true',filtr),10 ) else
-    system.Delete(filtr,pos('phrase=false',filtr),11 );
+    if t then system.Delete(filtr,pos('phrase=true',filtr),11 ) else
+    system.Delete(filtr,pos('phrase=false',filtr),12 );
     system.Delete(filtr,pos('and',filtr),4);
    end;
 

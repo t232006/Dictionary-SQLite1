@@ -67,6 +67,12 @@ object DataModule2: TDataModule2
     object DictTopic: TIntegerField
       FieldName = 'Topic'
     end
+    object DictDateRec: TDateField
+      FieldName = 'DateRec'
+    end
+    object DictRelevation: TIntegerField
+      FieldName = 'Relevation'
+    end
     object DictScore: TSmallintField
       FieldName = 'Score'
     end
@@ -74,11 +80,11 @@ object DataModule2: TDataModule2
       FieldName = 'Usersel'
       DisplayValues = ' '
     end
-    object DictRelevation: TIntegerField
-      FieldName = 'Relevation'
-    end
     object DictSpot: TBooleanField
       FieldName = 'Spot'
+    end
+    object DictPhrase: TBooleanField
+      FieldName = 'Phrase'
     end
     object DictTopicName: TStringField
       DisplayWidth = 40
@@ -90,12 +96,6 @@ object DataModule2: TDataModule2
       KeyFields = 'Topic'
       Size = 60
       Lookup = True
-    end
-    object DictDateRec: TDateField
-      FieldName = 'DateRec'
-    end
-    object DictPhrase: TBooleanField
-      FieldName = 'Phrase'
     end
   end
   object dstop: TDataSource
@@ -155,6 +155,7 @@ object DataModule2: TDataModule2
     Top = 304
   end
   object potential: TADODataSet
+    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     CommandText = 'select sum(Score) as sumScore from Dict where usersel=true'
@@ -201,8 +202,8 @@ object DataModule2: TDataModule2
     Parameters = <>
     SQL.Strings = (
       
-        'select a.Word,a.Translation,b.Name,a.DateRec from Dict a inner J' +
-        'OIN topic b'
+        'select a.Word,a.Translation,b.Name,a.DateRec, a.relevation from ' +
+        'Dict a inner JOIN topic b'
       'on a.topic=b.id'
       
         'where a.Word not in (select Word from TempDB.Dict) and a.Transla' +
