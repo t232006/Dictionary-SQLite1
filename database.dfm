@@ -1,14 +1,9 @@
 object DataModule2: TDataModule2
   Height = 374
   Width = 509
-  object dssynch: TDataSource
-    DataSet = synch
-    Left = 32
-    Top = 24
-  end
   object dspotential: TDataSource
     DataSet = potential
-    Left = 192
+    Left = 240
     Top = 32
   end
   object dsselectsel: TDataSource
@@ -34,6 +29,7 @@ object DataModule2: TDataModule2
     Active = True
     Connection = ADOConnection
     CursorType = ctStatic
+    LockType = ltReadOnly
     TableName = 'Topic'
     Left = 408
     Top = 144
@@ -50,6 +46,9 @@ object DataModule2: TDataModule2
     Connection = ADOConnection
     CursorType = ctStatic
     Filtered = True
+    LockType = ltReadOnly
+    AfterInsert = vokabAfterRefresh
+    AfterDelete = vokabAfterRefresh
     TableName = 'Dict'
     Left = 456
     Top = 144
@@ -110,7 +109,6 @@ object DataModule2: TDataModule2
     Top = 88
   end
   object topic: TADOQuery
-    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     Parameters = <>
@@ -148,12 +146,11 @@ object DataModule2: TDataModule2
     Top = 304
   end
   object selectsel: TADOQuery
-    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from Dict where usersel=1')
+      'select * from Dict where usersel=true')
     Left = 240
     Top = 304
   end
@@ -162,7 +159,7 @@ object DataModule2: TDataModule2
     CursorType = ctStatic
     CommandText = 'select sum(Score) as sumScore from Dict where usersel=true'
     Parameters = <>
-    Left = 192
+    Left = 240
     Top = 96
   end
   object addball: TADOQuery
@@ -177,18 +174,6 @@ object DataModule2: TDataModule2
     Left = 128
     Top = 304
   end
-  object synch: TADOQuery
-    Connection = ADOConnection
-    Parameters = <>
-    Left = 32
-    Top = 88
-  end
-  object DeepSearch: TADOCommand
-    Connection = ADOConnection
-    Parameters = <>
-    Left = 88
-    Top = 176
-  end
   object dropspot: TADOQuery
     Connection = ADOConnection
     Parameters = <>
@@ -196,5 +181,44 @@ object DataModule2: TDataModule2
       'update Dict set spot=false')
     Left = 192
     Top = 184
+  end
+  object dssynch: TDataSource
+    DataSet = synch
+    Left = 99
+    Top = 116
+  end
+  object deepsearch: TADOCommand
+    Connection = ADOConnection
+    Parameters = <>
+    Left = 104
+    Top = 224
+  end
+  object synch: TADOQuery
+    Connection = synchConn
+    CursorType = ctStatic
+    BeforeOpen = synchBeforeOpen
+    BeforeClose = synchBeforeClose
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select a.Word,a.Translation,b.Name,a.DateRec from Dict a inner J' +
+        'OIN topic b'
+      'on a.topic=b.id'
+      
+        'where a.Word not in (select Word from TempDB.Dict) and a.Transla' +
+        'tion not in (select Translation from TempDB.Dict)')
+    Left = 48
+    Top = 112
+  end
+  object synchAttachDetach: TADOCommand
+    Connection = synchConn
+    Parameters = <>
+    Left = 48
+    Top = 168
+  end
+  object synchConn: TADOConnection
+    LoginPrompt = False
+    Left = 88
+    Top = 48
   end
 end

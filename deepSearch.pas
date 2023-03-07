@@ -11,17 +11,7 @@ var _to:string;
 begin
     with DM2 do
     begin
-      //DeepSearchProc.Prepared:=false;
-      {deepsearchProc.parameters.ParamValues['@Needle'] :=needle;
-      if ord(needle[1])<128 then //latin
-        deepsearchProc.parameters.ParamValues['@Word']:=0
-      else
-        deepsearchProc.parameters.ParamValues['@Word']:=1;
-      //DeepSearchProc.Prepare;
-      DeepSearchProc.ExecProc;
-      baserefresh;     }
       dropspot.ExecSQL;
-      //deepsearch.parameters.ParamValues['@needle'] :=needle;
       if ord(needle[1])<128 then //latin
         _to:='Translation'
       else

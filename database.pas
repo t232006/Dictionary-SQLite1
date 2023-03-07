@@ -7,7 +7,6 @@ uses
 
 type
   TDataModule2 = class(TDataModule)
-    dssynch: TDataSource;
     dspotential: TDataSource;
     dsselectsel: TDataSource;
     dstopic: TDataSource;
@@ -23,11 +22,9 @@ type
     potential: TADODataSet;
     addball: TADOQuery;
     droprate: TADOCommand;
-    synch: TADOQuery;
     topid: TIntegerField;
     topicid: TIntegerField;
     topiccountdicttopic: TIntegerField;
-    DeepSearch: TADOCommand;
     dropspot: TADOQuery;
     DictNumber: TAutoIncField;
     DictWord: TWideStringField;
@@ -42,13 +39,16 @@ type
     DictDateRec: TDateField;
     topicName: TWideStringField;
     DictPhrase: TBooleanField;
+    dssynch: TDataSource;
+    deepsearch: TADOCommand;
+    synch: TADOQuery;
+    synchAttachDetach: TADOCommand;
+    synchConn: TADOConnection;
     procedure vokabAfterRefresh(DataSet: TDataSet);
     procedure synchAfterOpen(DataSet: TDataSet);
-    procedure DictWordGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
-    procedure DictUserselGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
     procedure ReloadConnection;
+    procedure synchBeforeOpen(DataSet: TDataSet);
+    procedure synchBeforeClose(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -76,18 +76,6 @@ begin
   selectsel.Active:=true;
 end;
 
-procedure TDataModule2.DictUserselGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-  Text:='';
-end;
-
-procedure TDataModule2.DictWordGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-    Text:=Sender.AsString
-end;
-
 procedure TDataModule2.synchAfterOpen(DataSet: TDataSet);
 begin
 with form1 do
@@ -96,6 +84,18 @@ with form1 do
     StBar.panels[1].Text:='Выделено слов: '+inttostr(DBGrid2.SelectedRows.Count);
     Fill4Status;
   end;
+end;
+
+procedure TDataModule2.synchBeforeClose(DataSet: TDataSet);
+begin
+  synchAttachDetach.CommandText:='detach database TempDB';
+  synchAttachDetach.Execute;
+end;
+
+procedure TDataModule2.synchBeforeOpen(DataSet: TDataSet);
+begin
+    synchAttachDetach.CommandText:='attach database '''+form1.baseFolder.Caption+''' as TempDB';
+    synchAttachDetach.Execute;
 end;
 
 procedure TDataModule2.vokabAfterRefresh(DataSet: TDataSet);

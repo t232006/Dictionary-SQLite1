@@ -338,7 +338,7 @@ var
   f:textfile;
   kolright:word;
   synchtr:synchthread;
-  posgrid:word;
+
 
   YesNo:TYesNo;
   poBukv:TPoBukvam;
@@ -851,7 +851,7 @@ begin
     with DM2.Dict do
     begin
       Edit;
-      fields[6].AsBoolean:=not(Fields[6].AsBoolean);
+      FieldByName('Usersel').AsBoolean:=not(FieldByName('Usersel').AsBoolean);
       Post;
     end;
     edittable(false);
@@ -1114,7 +1114,6 @@ begin
   //-------------------------------
   Action3Execute(sender);
 PageControl1Change(sender);
-posgrid:=0;
 if (Screen.Width<form1.Width) or (Screen.Height<form1.Height)
 then form1.BorderStyle:=bsSizeable;
 StBar.panels[0].Text:='Всего слов: '+inttostr(DM2.Dict.RecordCount);
@@ -1430,18 +1429,14 @@ begin
     //DBGrid2.Refresh;
 if od1.Execute then
   begin
-    DM2.synch.SQL.Clear;
-    dirbase:=ExtractFilePath(od1.FileName);  //открываем
-    DM2.synch.SQL.Add({'SELECT * FROM "'+od1.filename+'" WHERE word NOT IN (SELECT word FROM Dict)'}
-    'SELECT "'+od1.filename+'".word, "'+od1.filename+'".translation, "'+dirbase+'top.db".name, "'+od1.filename+'".daterec, "'+od1.filename+'".topic, "'+od1.FileName+'".score, "'+od1.FileName+'".phrase FROM "'+od1.filename+'" LEFT JOIN "'+dirbase+'top.db" ON "' +od1.filename+'".topic="'+dirbase+'top.db".Id WHERE word NOT IN (SELECT word FROM Dict)');
-  end;
-  try
-    with DM2 do
-    begin
-      synch.Open;
+    dirbase:=od1.FileName;  //открываем
+      //Close;
+      Dm2.synchConn.connectionString:='Provider=MSDASQL.1;Persist Security Info=False;Extended Properties="DSN=dictionarySource;Database='+dirbase+';"';
+    try
+      dm2.synch.Open;
+      StBar.panels[0].Text:='Найдено новых слов: '+inttostr(DM2.synch.RecordCount);
+    finally
     end;
-    StBar.panels[0].Text:='Найдено новых слов: '+inttostr(DM2.synch.RecordCount);
-  finally
   end;
 end;
 
@@ -1472,6 +1467,7 @@ begin
   if PageControl1.ActivePageIndex=0 then
     if search.Focused then
       search.SelectAll;
+    speedbutton9.Enabled:=true;
 
   if PageControl1.ActivePageIndex=8 then
     try
@@ -1554,7 +1550,8 @@ end;
 
 procedure TForm1.DBGrid2MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
-  var posgridnew:word; j:word;
+  var posgridnew, j:word;
+  const posgrid:word=0;
 begin
    with dbgrid2 do
    begin
@@ -1579,6 +1576,7 @@ begin
         end;
    end;
    posgrid:=posgridnew;
+   SpeedButton9.Enabled:=dbgrid2.SelectedIndex > -1;
    end;
 end;
 

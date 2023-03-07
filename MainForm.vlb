@@ -136,9 +136,6 @@ Coordinates=605,752,66,36
 [TabSheet8]
 Coordinates=518,752,77,36
 
-[DataModule2.dssynch]
-Coordinates=997,1295,141,58
-
 [TabSheet1]
 Coordinates=431,752,77,36
 
@@ -450,7 +447,7 @@ Coordinates=191,570,49,58
 Coordinates=792,298,78,58
 
 [DataModule2.]
-Coordinates=986,366,128,58
+Coordinates=997,1295,141,58
 
 [Grid]
 Coordinates=169,706,64,36
