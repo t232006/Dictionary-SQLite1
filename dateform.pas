@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, database, StdCtrls, DBCtrls, Buttons, remproc, Grids, DBGrids,
-  Data.DB, Bde.DBTables, Data.Win.ADODB;
+  Data.DB, Data.Win.ADODB;
 
 type
   Tdateformm = class(TForm)

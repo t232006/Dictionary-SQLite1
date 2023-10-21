@@ -155,7 +155,6 @@ object DataModule2: TDataModule2
     Top = 304
   end
   object potential: TADODataSet
-    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
     CommandText = 'select sum(Score) as sumScore from Dict where usersel=true'

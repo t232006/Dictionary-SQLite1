@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, database, StdCtrls, DBCtrls, ExtCtrls, Buttons, Grids, DBGrids,
-  Menus, basemanipulation, Vcl.Mask;
+  Menus, basemanipulation, Vcl.Mask, ansistrings;
 
 type
   Taddneword = class(TForm)
@@ -36,13 +36,15 @@ var
 
 implementation
 
-uses DB, DBTables, dialogtopic, lessons, MainForm;
+uses DB, dialogtopic, lessons, MainForm;
 
 {$R *.dfm}
 
 function Taddneword.isItPhrase(sl:string):boolean; //отвечает фраза ли это или слово
 var j,z:byte;
+    s:string;
 begin
+      s:=ansireplacetext(sl,', ','');// to exclude list of words
       z:=0;
      for j:=0 to length(sl)-1 do
       if sl[j]=' ' then inc(z);

@@ -55,7 +55,7 @@ type
 
 implementation
 
-uses DB, DBTables;
+uses DB;
 
 procedure TYesNo.Reset();
 begin

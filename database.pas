@@ -3,7 +3,7 @@ unit database;
 interface
 
 uses
-  SysUtils, Classes, DB, DBTables, Data.Win.ADODB;
+  SysUtils, Classes, DB, Data.Win.ADODB;
 
 type
   TDataModule2 = class(TDataModule)

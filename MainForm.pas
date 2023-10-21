@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, ValEdit, ComCtrls, DB, StdCtrls, DBGrids, DBTables,
+  Dialogs, Grids, ValEdit, ComCtrls, DB, StdCtrls, DBGrids,
   ExtCtrls, lessons, PoBukvam, lesson4, database, DBCtrls, addnewword, dateform,
   Buttons, frame, helpdict, Mask, ActnList, ActnMan, ActnColorMaps, ImgList,
   OleCtrls, SHDocVw, Gauges, thread2, DdeMan, Menus, System.Actions,
@@ -324,7 +324,7 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       RowBrushColor2:Tcolor;
     end;
   end;
-  procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
+  //procedure InstallReg(filename:string); stdcall; External 'reginstaller.dll';
 
 var
   Form1: TForm1;
