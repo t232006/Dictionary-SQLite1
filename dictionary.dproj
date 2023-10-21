@@ -103,59 +103,69 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="MainForm.pas">
-            <Form>Form1</Form>
-        </DCCReference>
         <DCCReference Include="lessons.pas"/>
         <DCCReference Include="lesson4.pas"/>
-        <DCCReference Include="database.pas">
-            <Form>DataModule2</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="addnewword.pas">
-            <Form>addneword</Form>
-        </DCCReference>
-        <DCCReference Include="dialogtopic.pas">
-            <Form>topicform</Form>
-        </DCCReference>
-        <DCCReference Include="frame.pas">
-            <Form>Frame2</Form>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
-        <DCCReference Include="helpdict.pas">
-            <Form>Manual</Form>
-        </DCCReference>
         <DCCReference Include="thread2.pas"/>
         <DCCReference Include="PoBukvam.pas"/>
-        <DCCReference Include="basemanipulation.pas"/>
-        <DCCReference Include="RowColorsUnit.pas">
-            <Form>RowColors</Form>
-        </DCCReference>
-        <DCCReference Include="coloredRowFrame.pas">
-            <Form>ColoredRow</Form>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
         <DCCReference Include="saver.pas"/>
         <DCCReference Include="ToExcelUnit.pas"/>
-        <DCCReference Include="squares.pas">
-            <Form>Frame3</Form>
-            <DesignClass>TFrame</DesignClass>
+        <DCCReference Include="regInstaller.pas"/>
+        <DCCReference Include="forms\addnewword.pas">
+            <Form>addneword</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UpDownHor.pas">
-            <Form>Frame4</Form>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
-        <DCCReference Include="dateform.pas">
+        <DCCReference Include="forms\dateform.pas">
             <Form>dateformm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="deepSearch.pas"/>
-        <DCCReference Include="cards.pas"/>
-        <DCCReference Include="RemindCard.pas">
+        <DCCReference Include="forms\dialogtopic.pas">
+            <Form>topicform</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="forms\helpdict.pas">
+            <Form>Manual</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="database\basemanipulation.pas"/>
+        <DCCReference Include="database\database.pas">
+            <Form>DataModule2</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="database\deepSearch.pas"/>
+        <DCCReference Include="frames\cards.pas"/>
+        <DCCReference Include="frames\coloredRowFrame.pas">
+            <Form>ColoredRow</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="frames\frame.pas">
+            <Form>Frame2</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="frames\RowColorsUnit.pas">
+            <Form>RowColors</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="frames\squares.pas">
+            <Form>Frame3</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="frames\UpDownHor.pas">
+            <Form>Frame4</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="MainForm.pas">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="frames\RemindCard.pas">
             <Form>Card</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="regInstaller.pas"/>
         <None Include="init.ini"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -215,7 +225,19 @@
             </Platforms>
             <Deployment Version="4">
                 <DeployFile LocalName="dictionary.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="dictionary.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>dictionary.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="init.ini" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="init.ini" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
