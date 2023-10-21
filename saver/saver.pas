@@ -60,7 +60,7 @@ begin
              2:Form1.N10Click(Form1);//n10.checked:=true;
              3:Form1.N12Click(Form1);//n12.checked:=true;
            end;
-       basefolder.Caption:=f.ReadString('database','database',ExtractFileDir(paramstr(0)+'/db/dictionary.db'));
+       basefolder.Caption:=f.ReadString('database','database',ExtractFileDir(paramstr(0)+'\db\dictionary.db'));
       end;
     finally
     f.Free;
@@ -70,7 +70,7 @@ end;
 procedure saveForm;
 var f:TIniFile; //s:string;
 begin
-    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0))) + 'init.ini');
+    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0))) + 'saver\init.ini');
     try
     with form1 do
     begin

@@ -103,13 +103,8 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="lessons.pas"/>
-        <DCCReference Include="lesson4.pas"/>
         <DCCReference Include="thread2.pas"/>
-        <DCCReference Include="PoBukvam.pas"/>
-        <DCCReference Include="saver.pas"/>
         <DCCReference Include="ToExcelUnit.pas"/>
-        <DCCReference Include="regInstaller.pas"/>
         <DCCReference Include="forms\addnewword.pas">
             <Form>addneword</Form>
             <FormType>dfm</FormType>
@@ -166,6 +161,11 @@
             <Form>Card</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="InstallerDB\regInstaller.pas"/>
+        <DCCReference Include="exercises\lesson4.pas"/>
+        <DCCReference Include="exercises\lessons.pas"/>
+        <DCCReference Include="exercises\PoBukvam.pas"/>
+        <DCCReference Include="saver\saver.pas"/>
         <None Include="init.ini"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
