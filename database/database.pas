@@ -56,7 +56,6 @@ type
   end;
   //procedure edittable(op:boolean);
 
-
 var
   DM2: TDataModule2;
 
