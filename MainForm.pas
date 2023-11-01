@@ -519,7 +519,7 @@ end;// end;
 
 procedure Tform1.InitPerevodSlo;
 begin
-  test:=TTest.create(6);
+  //test:=TTest.create(6);
   test.PerevodSlo(o,pravotv);
   st2.Caption:=o[0].perevod;
   Rg2.ItemIndex:=-1;
@@ -533,8 +533,8 @@ end; //end;
 procedure TForm1.InitPobukvam;
 var ii, jj: integer;
 begin
-  poBukv.Free;
-  poBukv:=TPoBukvam.create;
+  //poBukv.Free;
+
   for ii := 0 to 4 do
   for jj := 0 to 4 do
     sg.Cells[ii,jj] :=poBukv.table[ii,jj];
@@ -586,18 +586,13 @@ var t,t1:byte; //parentcontrol:TWinControl;
 begin
 
   case  PageControl1.ActivePageIndex of
-  0:
-  begin
-    //baserefrash;
-  end;
   1:
   begin
-      test:=TTest.create(6);
       InitSlovoPer;
   end;
   2:
   begin
-      test:=TTest.create(6);
+      //test:=TTest.create(6);
       InitPerevodSlo;
   end;
   3:
@@ -606,7 +601,7 @@ begin
   end;
   4:
   begin
-    complience:= Tcomplience.Create;
+
     for t:=1 to 6 do
     begin
         TMemo(FindComponent('m'+IntToStr(t))).lines.text:=complience.o1[t].slovo;
@@ -620,7 +615,8 @@ begin
   end;
   5:
   begin
-     YesNo:=TYesNo.Create(1);
+     //
+     YesNo.Init;
   end;
   6:
   begin
@@ -638,6 +634,7 @@ begin
             Frame211.Visible:=true;
                   Frame212.Visible:=true;
     end;
+    cards.Free;
     cards:=Tcards.create(t1);
     for t:=1 to t1 do
     begin
@@ -657,10 +654,6 @@ begin
 
         TFrame(FindComponent('frame2'+inttostr(t))).FindChildControl('bitbtn1').Enabled:=true;
     end;
-  end;
-  7:
-  begin
-    //WebBrowser1.Navigate(ExtractFileDir(Application.ExeName)+'\словарь.htm');
   end;
   
   end;
@@ -805,11 +798,19 @@ procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 with DM2 do
 begin
-Dict.Close;
-top.Close;
-topicquery.SQL.Clear;
+  Dict.Close;
+  top.Close;
+  topicquery.SQL.Clear;
 end;
-saveForm;
+  saveForm;
+
+  SeAndCor.Destroy;
+  test.Destroy;
+  complience.Destroy;
+  poBukv.Destroy;
+  yesNo.Destroy;
+  cards.free;
+
 end;
 
 procedure TForm1.searchKeyPress(Sender: TObject; var Key: Char);
@@ -1134,7 +1135,13 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   Dpot.Parent:=StBar;
   SeAndCor:=Tgrademanipulation.Create(DM2);
+  test:=TTest.create(6);
+  complience:= Tcomplience.Create;
+  //InitPobukvam;
+  poBukv:=TPoBukvam.create;
+  YesNo:=TYesNo.Create(1);
   loadForm;
+
   //-------------------------------
   //pb.canvas.Brush.color:=clwhite;
   Action3Execute(sender);
