@@ -313,6 +313,7 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure UToClButClick(Sender: TObject);
     procedure ChShowScoreClick(Sender: TObject);
     procedure searchChange(Sender: TObject);
+    procedure DBMemo1Change(Sender: TObject);
 
     
   private
@@ -1663,6 +1664,15 @@ begin
    posgrid:=posgridnew;
    SpeedButton9.Enabled:=dbgrid2.SelectedIndex > -1;
    end;
+end;
+
+procedure TForm1.DBMemo1Change(Sender: TObject);
+var fontheight:byte;
+begin
+  fontHeight:=(Sender as TDBMemo).height div ((length((Sender as TDBMemo).Text) div 25)+1);
+  if fontheight<=25 then
+  (Sender as TDBMemo).font.Height:=fontheight else
+  (Sender as TDBMemo).Font.Height:=25;
 end;
 
 procedure TForm1.DBMemo1KeyPress(Sender: TObject; var Key: Char);
