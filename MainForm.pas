@@ -217,7 +217,6 @@ type
     procedure m1DragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure Button3Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure searchKeyPress(Sender: TObject; var Key: Char);
     procedure SelOperCloseUp(Sender: TObject);
     procedure GridCellClick(Column: TColumn);
     procedure caneditClick(Sender: TObject);
@@ -313,6 +312,8 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure LFromClButClick(Sender: TObject);
     procedure UToClButClick(Sender: TObject);
     procedure ChShowScoreClick(Sender: TObject);
+    procedure searchChange(Sender: TObject);
+
     
   private
     { Private declarations }
@@ -335,7 +336,7 @@ procedure sgMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
 var
   Form1: TForm1;
-  card:TCard;
+
   pravotv:byte;
   i:byte;   //ОСТОРОЖНО!
   s, filtr:string;
@@ -345,8 +346,9 @@ var
   f:textfile;
   kolright:word;
   synchtr:synchthread;
+  //selNo:integer;
 
-
+  card:TCard;
   YesNo:TYesNo;
   poBukv:TPoBukvam;
   test:TTest;
@@ -813,12 +815,24 @@ end;
 
 end;
 
-procedure TForm1.searchKeyPress(Sender: TObject; var Key: Char);
-begin
-  if ord(key)<128 then
-    DM2.Dict.Locate('Translation',Search.Text+key,[loPartialKey, loCaseInsensitive])
+procedure TForm1.searchChange(Sender: TObject);
+var s:string; 
+    letter:char;    // last letter
+begin  
+  s := search.Text;
+  if s <> '' then letter := s[length(s)];  
+  if ord(letter) = 43 then
+    begin  
+      delete(s,length(s),1);
+      search.Text:=s;
+    end else
+  if ord(letter)<128 then
+    DM2.Dict.Locate('Translation', s, [loPartialKey, loCaseInsensitive])
   else
-    DM2.Dict.Locate('Word',Search.Text+key,[loPartialKey, loCaseInsensitive])
+    DM2.Dict.Locate('Word', s, [loPartialKey, loCaseInsensitive]);
+  
+    
+    
 end;
 
 procedure TForm1.SelOperCloseUp(Sender: TObject);
@@ -1151,7 +1165,9 @@ then form1.BorderStyle:=bsSizeable;
 StBar.panels[0].Text:='Всего слов: '+inttostr(DM2.Dict.RecordCount);
 end;
 
+// book formkeypress
 procedure TForm1.FormKeyPress(Sender: TObject; var Key: Char);
+var k:integer;
 procedure rectt (col:Tcolor; var tecomp:Tmemo); //draws green bevel
 begin
     with tecomp do
@@ -1183,9 +1199,18 @@ try
   case PageControl1.ActivePageIndex of
   0:
   begin
-     if (ord(key)=32) and not(canedit.Down) and not(search.Focused) then
-      selspot.Checked:=not(selspot.Checked);
-     if ord(key)=43 then SpBut8.Click;
+     k:=ord(key);
+     if (k=32) and not(canedit.Down) and not(search.Focused) then
+      selspot.Checked:=not(selspot.Checked) else
+     if k=43 then SpBut8.Click else
+     if not(search.Focused) and not([dgediting] <= grid.Options) then
+
+     //if (k >= 65) and (k <= 122) or (k >= 128) and (k <= 175) or (k >= 224) and (k <= 241) then
+      begin
+        search.Text:=key;
+        search.SetFocus;
+        search. SelStart:=1;
+      end;
 
   end;
 
@@ -1248,6 +1273,7 @@ try
           rightnum:=0; leftnum:=0;
           end;
       end;
+
   end;
   end;  //===============================================
   5:
@@ -1659,6 +1685,7 @@ end;
 procedure TForm1.GridDrawColumnCell(Sender: TObject; const Rect2: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
   var style,rl,rr,rt,rb:integer; rect1:TRect;
+      //selNo:integer;
 begin
 //-------------STRIPES-------------//
 //if ((DataCol=0) and not(gdselected in state)) then TableGreedRow.drawTrueBack:=not(TableGreedRow.drawTrueBack);
@@ -1668,9 +1695,19 @@ else
   TDBGrid(Sender).Canvas.Brush.Color:=TableGreedRow.RowBrushColor2;
 if gdselected in state then
   begin
+      //selNo:=TDBGrid(sender).DataSource.DataSet.RecNo;
       TDBGrid(Sender).Canvas.Brush.Color:=clBlack;
       TDBGrid(Sender).Canvas.Font.Color:=clWhite;
   end;
+{if selNo=TDBGrid(sender).DataSource.DataSet.RecNo then
+  begin
+    TDBGrid(Sender).Canvas.Pen.Style:=psDot;
+    TDBGrid(Sender).Canvas.Pen.Color:=clBlack;
+    TDBGrid(Sender).Canvas.Brush.Color:=clBlack;
+      TDBGrid(Sender).Canvas.Font.Color:=clWhite;
+    //TDBGrid(Sender).Canvas.Rectangle(Rect2);
+  end;       }
+
   TDBGrid(Sender).DefaultDrawColumnCell(rect2,datacol,column,state);
   //-------------CHECKBOXES-------------//
   if column.FieldName='Usersel' then
