@@ -41,7 +41,7 @@ begin
       ChShowScale.Checked:=n5.Checked;
       n6.Checked:=f.ReadBool('Scale','ShowScale',false);
       ChShowNumber.Checked:=n6.Checked;
-      n11.Checked:=f.ReadBool('Scale','Relevation?', false);
+       n11.Checked:=f.ReadBool('Scale','Relevation?', false);
       ChShowScore.Checked:=not(n11.Checked);
 
       ShCardColor.Brush.Color:=f.ReadInteger('Scale','CardColor',-16777206);
