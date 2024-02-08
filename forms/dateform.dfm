@@ -122,21 +122,11 @@ object dateformm: Tdateformm
     Left = 40
     Top = 392
   end
-  object dateq: TADOQuery
-    Active = True
-    Connection = DataModule2.ADOConnection
-    CursorType = ctStatic
-    Parameters = <>
+  object dateq: TFDQuery
     SQL.Strings = (
       'select daterec, count(daterec) from Dict'
       'group by(daterec)')
-    Left = 96
+    Left = 80
     Top = 392
-    object dateqDateRec: TDateField
-      FieldName = 'DateRec'
-    end
-    object dateqcountdaterec: TIntegerField
-      FieldName = 'count(daterec)'
-    end
   end
 end

@@ -5,7 +5,10 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, database, StdCtrls, DBCtrls, Buttons, remproc, Grids, DBGrids,
-  Data.DB, Data.Win.ADODB;
+  Data.DB, Data.Win.ADODB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
 
 type
   Tdateformm = class(TForm)
@@ -13,9 +16,7 @@ type
     BitBtn1: TBitBtn;
     DBGrid1: TDBGrid;
     dsdateq: TDataSource;
-    dateq: TADOQuery;
-    dateqcountdaterec: TIntegerField;
-    dateqDateRec: TDateField;
+    dateq: TFDQuery;
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure DBGrid1TitleClick(Column: TColumn);

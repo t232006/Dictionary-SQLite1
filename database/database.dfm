@@ -12,181 +12,19 @@ object DataModule2: TDataModule2
     Top = 344
   end
   object dstopic: TDataSource
-    DataSet = topic
-    Left = 456
-    Top = 128
-  end
-  object ADOConnection: TADOConnection
-    Connected = True
-    ConnectionString = 
-      'Provider=MSDASQL.1;Persist Security Info=False;Data Source=dicti' +
-      'onary'
-    LoginPrompt = False
-    Left = 528
-    Top = 24
-  end
-  object top: TADOTable
-    Active = True
-    Connection = ADOConnection
-    CursorType = ctStatic
-    LockType = ltReadOnly
-    TableName = 'Topic'
-    Left = 504
-    Top = 152
-    object topid: TIntegerField
-      FieldName = 'id'
-    end
-    object topName: TWideStringField
-      FieldName = 'Name'
-      Size = 255
-    end
-  end
-  object Dict: TADOTable
-    Active = True
-    Connection = ADOConnection
-    CursorType = ctStatic
-    Filtered = True
-    LockType = ltReadOnly
-    AfterInsert = vokabAfterRefresh
-    AfterDelete = vokabAfterRefresh
-    TableName = 'Dict'
-    Left = 552
-    Top = 152
-    object DictNumber: TAutoIncField
-      FieldName = 'Number'
-      ReadOnly = True
-    end
-    object DictWord: TWideStringField
-      FieldName = 'Word'
-      Size = 255
-    end
-    object DictTranslation: TWideStringField
-      FieldName = 'Translation'
-      Size = 255
-    end
-    object DictTopic: TIntegerField
-      FieldName = 'Topic'
-    end
-    object DictDateRec: TDateField
-      FieldName = 'DateRec'
-    end
-    object DictRelevation: TIntegerField
-      FieldName = 'Relevation'
-    end
-    object DictScore: TSmallintField
-      FieldName = 'Score'
-    end
-    object DictUsersel: TBooleanField
-      FieldName = 'Usersel'
-      DisplayValues = ' '
-    end
-    object DictSpot: TBooleanField
-      FieldName = 'Spot'
-    end
-    object DictPhrase: TBooleanField
-      FieldName = 'Phrase'
-    end
-    object DictTopicName: TStringField
-      DisplayWidth = 40
-      FieldKind = fkLookup
-      FieldName = 'TopicName'
-      LookupDataSet = top
-      LookupKeyFields = 'id'
-      LookupResultField = 'Name'
-      KeyFields = 'Topic'
-      Size = 60
-      Lookup = True
-    end
+    DataSet = Topic
+    Left = 472
+    Top = 96
   end
   object dsdict: TDataSource
     DataSet = Dict
-    Left = 552
+    Left = 560
     Top = 96
-  end
-  object topic: TADOQuery
-    Connection = ADOConnection
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select topic.id, topic.name, count(dict.topic)'
-      'from topic left join dict'
-      'on dict.topic=topic.id'
-      'group by id, name')
-    Left = 456
-    Top = 184
-    object topicid: TIntegerField
-      FieldName = 'id'
-    end
-    object topiccountdicttopic: TIntegerField
-      FieldName = 'count(dict.topic)'
-    end
-    object topicName: TWideStringField
-      FieldName = 'Name'
-      Size = 255
-    end
-  end
-  object topicquery: TADOQuery
-    Connection = ADOConnection
-    Parameters = <>
-    SQL.Strings = (
-      'update Dict set usersel=true where')
-    Left = 400
-    Top = 168
-  end
-  object dropch: TADOCommand
-    CommandText = 'UPDATE Dict'#13#10'SET usersel=false'#13#10#13#10
-    Connection = ADOConnection
-    Parameters = <>
-    Left = 216
-    Top = 368
-  end
-  object selectsel: TADOQuery
-    Connection = ADOConnection
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from Dict where usersel=true')
-    Left = 440
-    Top = 392
-  end
-  object potential: TADODataSet
-    Connection = ADOConnection
-    CursorType = ctStatic
-    CommandText = 'select sum(Score) as sumScore from Dict where usersel=true'
-    Parameters = <>
-    Left = 360
-    Top = 88
-  end
-  object addball: TADOQuery
-    Connection = ADOConnection
-    Parameters = <>
-    Left = 496
-    Top = 344
-  end
-  object droprate: TADOCommand
-    Connection = ADOConnection
-    Parameters = <>
-    Left = 264
-    Top = 368
-  end
-  object dropspot: TADOQuery
-    Connection = ADOConnection
-    Parameters = <>
-    SQL.Strings = (
-      'update Dict set spot=false')
-    Left = 392
-    Top = 272
   end
   object dssynch: TDataSource
     DataSet = synch
     Left = 99
     Top = 172
-  end
-  object deepsearch: TADOCommand
-    Connection = ADOConnection
-    Parameters = <>
-    Left = 240
-    Top = 288
   end
   object synchConn: TFDConnection
     Params.Strings = (
@@ -218,5 +56,155 @@ object DataModule2: TDataModule2
     Connection = synchConn
     Left = 56
     Top = 264
+  end
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'DriverID=SQLite'
+      
+        'Database=Z:\'#1055#1088#1086#1075#1088#1072#1084#1084#1080#1088#1086#1074#1072#1085#1080#1077'\repos\Dictionary-SQLite\db\dictiona' +
+        'ry.db')
+    Connected = True
+    LoginPrompt = False
+    Left = 536
+    Top = 24
+  end
+  object Dict: TFDTable
+    Active = True
+    IndexFieldNames = 'Number'
+    Connection = FDConnection
+    ResourceOptions.AssignedValues = [rvEscapeExpand]
+    TableName = 'Dict'
+    Left = 560
+    Top = 160
+    object DictNumber: TFDAutoIncField
+      FieldName = 'Number'
+      Origin = 'Number'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object DictWord: TWideStringField
+      FieldName = 'Word'
+      Origin = 'Word'
+      Required = True
+      Size = 32767
+    end
+    object DictTranslation: TWideStringField
+      FieldName = 'Translation'
+      Origin = 'Translation'
+      Required = True
+      Size = 32767
+    end
+    object DictDateRec: TDateField
+      FieldName = 'DateRec'
+      Origin = 'DateRec'
+      Required = True
+    end
+    object DictScore: TSmallintField
+      FieldName = 'Score'
+      Origin = 'Score'
+      Required = True
+    end
+    object DictUsersel: TBooleanField
+      FieldName = 'Usersel'
+      Origin = 'Usersel'
+      Required = True
+      DisplayValues = ' '
+    end
+    object DictPhrase: TBooleanField
+      FieldName = 'Phrase'
+      Origin = 'Phrase'
+    end
+    object DictRelevation: TIntegerField
+      FieldName = 'Relevation'
+      Origin = 'Relevation'
+      Required = True
+    end
+    object DictSpot: TBooleanField
+      FieldName = 'Spot'
+      Origin = 'Spot'
+      Required = True
+    end
+    object DictTopic: TIntegerField
+      FieldName = 'Topic'
+      Origin = 'Topic'
+    end
+    object DictTopicName: TStringField
+      FieldKind = fkLookup
+      FieldName = 'TopicName'
+      LookupDataSet = Top
+      LookupKeyFields = 'id'
+      LookupResultField = 'Name'
+      KeyFields = 'Topic'
+      Lookup = True
+    end
+  end
+  object Top: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = FDConnection
+    ResourceOptions.AssignedValues = [rvEscapeExpand]
+    TableName = 'topic'
+    Left = 512
+    Top = 136
+  end
+  object Topic: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select topic.id, topic.name, count(dict.topic)'
+      'from topic left join dict'
+      'on dict.topic=topic.id'
+      'group by id, name')
+    Left = 472
+    Top = 160
+  end
+  object Topicquery: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'update Dict set usersel=true where')
+    Left = 376
+    Top = 184
+  end
+  object potential: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select sum(Score) as sumScore from Dict where usersel=true')
+    Left = 360
+    Top = 80
+  end
+  object dropspot: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'update Dict set spot=false')
+    Left = 456
+    Top = 264
+  end
+  object addball: TFDQuery
+    Connection = FDConnection
+    Left = 520
+    Top = 280
+  end
+  object selectsel: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from Dict where usersel=true')
+    Left = 448
+    Top = 392
+  end
+  object deepsearch: TFDCommand
+    Connection = FDConnection
+    Left = 216
+    Top = 288
+  end
+  object dropch: TFDCommand
+    Connection = FDConnection
+    CommandText.Strings = (
+      'UPDATE Dict'
+      'SET usersel=false')
+    Left = 200
+    Top = 368
+  end
+  object droprate: TFDCommand
+    Connection = FDConnection
+    Left = 264
+    Top = 368
   end
 end
