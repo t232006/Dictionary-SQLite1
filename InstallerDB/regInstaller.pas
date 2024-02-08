@@ -6,17 +6,42 @@ uses
   System.Classes,
   registry,
   winApi.Windows;
-procedure InstallReg(filename:string);
+Type TDBRegistry=class
+  reg:TRegistry;
+  key1:string;
+  public
+  procedure WritePath(filename:string);
+  function GetPath: string;
+  constructor Create;
+  destructor Destroy;
+end;
 
 implementation
-procedure InstallReg(filename:string);
-var reg:TRegistry;  key1, key2:string;
+
+destructor TDBRegistry.Destroy;
 begin
-  reg:=Tregistry.Create;
-  key1:='SOFTWARE\ODBC\ODBC.INI\dictionary';
+  reg.Free;
+end;
+
+Constructor TDBRegistry.Create;
+begin
+    reg:=TRegistry.Create;
+    reg.rootkey:= HKEY_LOCAL_MACHINE;
+    key1:='SOFTWARE\ODBC\ODBC.INI\dictionary';
+end;
+
+function TDBRegistry.GetPath: string;
+begin
+    reg.OpenKey(key1, false);
+    result:=reg.ReadString('Database');
+    reg.CloseKey;
+end;
+
+procedure TDBRegistry.WritePath(filename:string);
+var key2:string;
+begin
   with reg do
     begin
-      rootkey:= HKEY_LOCAL_MACHINE;
       if not(keyexists(key1)) then
       begin
         openkey(key1,true);
@@ -30,7 +55,6 @@ begin
       OpenKey(key1,false);
       WriteString('Database',filename);
       CloseKey;
-      Destroy;
     end;
 end;
 end.

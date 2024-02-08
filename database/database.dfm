@@ -98,11 +98,6 @@ object DataModule2: TDataModule2
       Lookup = True
     end
   end
-  object dstop: TDataSource
-    DataSet = top
-    Left = 408
-    Top = 88
-  end
   object dsdict: TDataSource
     DataSet = Dict
     Left = 456

@@ -51,12 +51,13 @@ begin
      with DBMemo1 do
        begin
         ReadOnly:=false;
+        DataSource.DataSet.Edit;
         SetFocus;
        end
      else
      With DM2 do
      begin
-        top.Post;
+        topic.Post;
         TopicRefresh;
         DBmemo1.ReadOnly:=true;
         DBGrid1.SetFocus;
@@ -70,13 +71,17 @@ begin
 if DM2.topic.State in [dsedit, dsinsert]
 then
 begin
-  DM2.top.Post;
+  EdBut.Down:=false;
+  EdButClick(sender);
+  //DM2.topic.Post;
+  //DM2.topic.Refresh;
   //DM2.Dict.Refresh;
 end else
 begin
       if DelBut.Down then delbut.Down:=false else
       if AddBut.Down then AddBut.Down:=false else
-      if EdBut.Down then EdBut.Down:=false else
+      //if EdBut.Down then EdBut.Down:=false else //equals dm2.topic.state=[dsedit]
+      if DBGrid1.SelectedRows.Count>0 then
       begin
         dbgrid1.DataSource.DataSet.DisableControls; //чтобы не перескакивать
         for k:=0 to DBGrid1.SelectedRows.Count-1 do
@@ -88,15 +93,12 @@ begin
               DM2.topicquery.SQL.Add('topic = '+ DM2.topic.Fields[0] .AsString );
              end;
         DM2.topicquery.ExecSQL;
-
         DBGrid1.DataSource.DataSet.enablecontrols;
       end;
       //DM2.Dict.Refresh;
       baserefresh;
-      DM2.top.Refresh;
-
 end;
-DBGrid1.Options:=DBGrid1.Options-[dgediting];
+//DBGrid1.Options:=DBGrid1.Options-[dgediting];
 end;
 
 procedure Ttopicform.DelButClick(Sender: TObject);

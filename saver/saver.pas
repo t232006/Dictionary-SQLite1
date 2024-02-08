@@ -1,7 +1,8 @@
 unit saver;
 
 interface
-uses VCL.Graphics, Classes, Sysutils, System.IniFiles, Frame, ShellAPI, Windows ;
+uses VCL.Graphics, Classes, Sysutils, System.IniFiles,
+  Frame, ShellAPI, Windows,  ShlObj;
 
 type
   Tcloud = class
@@ -12,16 +13,30 @@ type
 
    procedure saveForm;
    procedure loadForm;
+   function GetSpecialPath(CSIDL: word): string;
+
 
 implementation
-uses MainForm;
+uses MainForm, reginstaller;
+
+function GetSpecialPath(CSIDL: word): string;
+var s: PChar;
+begin
+s:=stralloc(max_path);
+if not SHGetSpecialFolderPath(0, s, CSIDL, true)
+then s := '';
+result := s;
+end;
 
 procedure loadForm;
   var //f:textfile;
     fk:byte;
     f:TIniFile;
+    r:TDBRegistry;
+    IniPath: string;
 begin
-    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0))) + 'saver\init.ini');
+    IniPath := GetSpecialPath(CSIDL_APPDATA)+'\Individual dictionary\init.ini';
+    f:=TIniFile.Create(IniPath);
     try
     with form1 do
       begin
@@ -68,7 +83,10 @@ begin
              2:Form1.N10Click(Form1);//n10.checked:=true;
              3:Form1.N12Click(Form1);//n12.checked:=true;
            end;
-       basefolder.Caption:=f.ReadString('database','database',ExtractFileDir(paramstr(0)+'\db\dictionary.db'));
+       r:=TDBRegistry.Create;
+       basefolder.Caption:=r.GetPath;
+       r.Destroy;
+       //f.ReadString('database','database',ExtractFileDir(paramstr(0)+'\db\dictionary.db'));
       end;
     finally
     f.Free;
@@ -76,9 +94,11 @@ begin
 end;
 
 procedure saveForm;
-var f:TIniFile; //s:string;
+var f:TIniFile; r:TDBRegistry;
+    IniPath:string;
 begin
-    f:=TIniFile.Create(IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0))) + 'saver\init.ini');
+    IniPath := GetSpecialPath(CSIDL_APPDATA)+'\Individual dictionary\init.ini';
+    f:=TIniFile.Create(IniPath);
     try
     with form1 do
     begin
@@ -105,7 +125,10 @@ begin
       if n10.checked then f.WriteInteger('Bar','Radio',2) else
       if n12.checked then f.WriteInteger('Bar','Radio',3);
 
-      f.WriteString('database','database',form1.baseFolder.Caption);
+      r.Create;
+      r.WritePath(baseFolder.Caption);
+      r.Destroy;
+      //f.WriteString('database','database',form1.baseFolder.Caption);
     end;
     finally
 

@@ -13,7 +13,6 @@ type
     ADOConnection: TADOConnection;
     top: TADOTable;
     Dict: TADOTable;
-    dstop: TDataSource;
     dsdict: TDataSource;
     topic: TADOQuery;
     topicquery: TADOQuery;
