@@ -3,7 +3,13 @@ unit database;
 interface
 
 uses
-  SysUtils, Classes, DB, Data.Win.ADODB;
+  SysUtils, Classes, DB, Data.Win.ADODB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Phys.SQLite,
+  FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs,
+  FireDAC.Phys.SQLiteWrapper.Stat;
 
 type
   TDataModule2 = class(TDataModule)
@@ -40,9 +46,9 @@ type
     DictPhrase: TBooleanField;
     dssynch: TDataSource;
     deepsearch: TADOCommand;
-    synch: TADOQuery;
-    synchAttachDetach: TADOCommand;
-    synchConn: TADOConnection;
+    synchConn: TFDConnection;
+    synch: TFDQuery;
+    synchAttachDetach: TFDCommand;
     procedure vokabAfterRefresh(DataSet: TDataSet);
     procedure synchAfterOpen(DataSet: TDataSet);
     procedure ReloadConnection;
@@ -86,13 +92,13 @@ end;
 
 procedure TDataModule2.synchBeforeClose(DataSet: TDataSet);
 begin
-  synchAttachDetach.CommandText:='detach database TempDB';
+  synchAttachDetach.CommandText.Add('detach database TempDB');
   synchAttachDetach.Execute;
 end;
 
 procedure TDataModule2.synchBeforeOpen(DataSet: TDataSet);
 begin
-    synchAttachDetach.CommandText:='attach database '''+form1.baseFolder.Caption+''' as TempDB';
+    synchAttachDetach.CommandText.Add('attach database '''+form1.baseFolder.Caption+''' as TempDB');
     synchAttachDetach.Execute;
 end;
 
