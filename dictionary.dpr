@@ -13,7 +13,6 @@ uses
   basemanipulation in 'database\basemanipulation.pas',
   database in 'database\database.pas' {DataModule2: TDataModule},
   deepSearch in 'database\deepSearch.pas',
-  cards in 'frames\cards.pas',
   coloredRowFrame in 'frames\coloredRowFrame.pas' {ColoredRow: TFrame},
   frame in 'frames\frame.pas' {Frame2: TFrame},
   RowColorsUnit in 'frames\RowColorsUnit.pas' {RowColors},
@@ -25,7 +24,8 @@ uses
   lesson4 in 'exercises\lesson4.pas',
   lessons in 'exercises\lessons.pas',
   PoBukvam in 'exercises\PoBukvam.pas',
-  saver in 'saver\saver.pas';
+  saver in 'saver\saver.pas',
+  cardsUnit in 'frames\cardsUnit.pas';
 
 {$R *.res}
 

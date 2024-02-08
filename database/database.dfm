@@ -59,17 +59,14 @@ object DataModule2: TDataModule2
   end
   object FDConnection: TFDConnection
     Params.Strings = (
-      'DriverID=SQLite'
-      
-        'Database=Z:\'#1055#1088#1086#1075#1088#1072#1084#1084#1080#1088#1086#1074#1072#1085#1080#1077'\repos\Dictionary-SQLite\db\dictiona' +
-        'ry.db')
-    Connected = True
+      'DriverID=SQLite')
     LoginPrompt = False
     Left = 536
     Top = 24
   end
   object Dict: TFDTable
-    Active = True
+    AfterInsert = DictAfterInsert
+    AfterDelete = DictAfterDelete
     IndexFieldNames = 'Number'
     Connection = FDConnection
     ResourceOptions.AssignedValues = [rvEscapeExpand]
@@ -80,6 +77,7 @@ object DataModule2: TDataModule2
       FieldName = 'Number'
       Origin = 'Number'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object DictWord: TWideStringField
       FieldName = 'Word'
@@ -138,7 +136,6 @@ object DataModule2: TDataModule2
     end
   end
   object Top: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = FDConnection
     ResourceOptions.AssignedValues = [rvEscapeExpand]

@@ -46,9 +46,11 @@ type
     DictTopicName: TStringField;
     procedure vokabAfterRefresh(DataSet: TDataSet);
     procedure synchAfterOpen(DataSet: TDataSet);
-    procedure ReloadConnection;
+    function loadDB(dbPath:string):boolean;
     procedure synchBeforeOpen(DataSet: TDataSet);
     procedure synchBeforeClose(DataSet: TDataSet);
+    procedure DictAfterDelete(DataSet: TDataSet);
+    procedure DictAfterInsert(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -61,19 +63,41 @@ var
 
 implementation
 
-uses MainForm;
+uses MainForm, saver;
 
 
 {$R *.dfm}
 
-procedure TDataModule2.ReloadConnection;
+procedure TDataModule2.DictAfterDelete(DataSet: TDataSet);
 begin
-  FDConnection.Connected:=false;
-  FDConnection.Connected:=true;
-  Dict.Active:=true;
-  Top.Active:=true;
-  Topic.Active:=true;
-  selectsel.Active:=true;
+  if DataSet.RecordCount<6 then
+    Form1.PagesBlock(true);
+end;
+
+procedure TDataModule2.DictAfterInsert(DataSet: TDataSet);
+begin
+  if DataSet.RecordCount=6 then
+    form1.PagesBlock(false);
+end;
+
+function TDataModule2.loadDB(dbPath:string):boolean;
+begin
+   if FileExists(dbPath) then
+   begin
+    FDConnection.Params.Database:=dbPath;
+    FDConnection.Connected:=false;
+    FDConnection.Connected:=true;
+    Dict.Active:=true;
+    Top.Active:=true;
+    Topic.Active:=true;
+    selectsel.Active:=true;
+    if Dict.RecordCount>=6 then
+    startexercises  else form1.PagesBlock(true);
+    result:=true;
+   end
+   else result:=false;
+
+
 end;
 
 procedure TDataModule2.synchAfterOpen(DataSet: TDataSet);
