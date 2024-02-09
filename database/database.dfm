@@ -70,6 +70,10 @@ object DataModule2: TDataModule2
     IndexFieldNames = 'Number'
     Connection = FDConnection
     ResourceOptions.AssignedValues = [rvEscapeExpand]
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
     TableName = 'Dict'
     Left = 560
     Top = 160
@@ -139,6 +143,10 @@ object DataModule2: TDataModule2
     IndexFieldNames = 'id'
     Connection = FDConnection
     ResourceOptions.AssignedValues = [rvEscapeExpand]
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
     TableName = 'topic'
     Left = 512
     Top = 136

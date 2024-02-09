@@ -38,7 +38,7 @@ begin
       with DM2.Dict do
       begin
         Active:=false;
-        //ReadOnly:=false;
+        UpdateOptions.ReadOnly:=false;
         Active:=true;
       end;
 

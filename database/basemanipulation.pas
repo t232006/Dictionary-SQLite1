@@ -40,7 +40,7 @@ begin
       no:=RecNo;  //остаться на старой записи
       //_sort:=Sort;
       Active:=false;
-      //ReadOnly :=not(op);//если редактировать, то не только чтение
+      UpdateOptions.ReadOnly :=not(op);//если редактировать, то не только чтение
       Active:=true;
       //Sort:=_sort;
       RecNo:=no;
