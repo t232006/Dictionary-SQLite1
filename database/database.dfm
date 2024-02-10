@@ -95,20 +95,22 @@ object DataModule2: TDataModule2
       Required = True
       Size = 32767
     end
+    object DictTopic: TIntegerField
+      FieldName = 'Topic'
+      Origin = 'Topic'
+      Required = True
+    end
     object DictDateRec: TDateField
       FieldName = 'DateRec'
       Origin = 'DateRec'
-      Required = True
     end
     object DictScore: TSmallintField
       FieldName = 'Score'
       Origin = 'Score'
-      Required = True
     end
     object DictUsersel: TBooleanField
       FieldName = 'Usersel'
       Origin = 'Usersel'
-      Required = True
       DisplayValues = ' '
     end
     object DictPhrase: TBooleanField
@@ -118,16 +120,10 @@ object DataModule2: TDataModule2
     object DictRelevation: TIntegerField
       FieldName = 'Relevation'
       Origin = 'Relevation'
-      Required = True
     end
     object DictSpot: TBooleanField
       FieldName = 'Spot'
       Origin = 'Spot'
-      Required = True
-    end
-    object DictTopic: TIntegerField
-      FieldName = 'Topic'
-      Origin = 'Topic'
     end
     object DictTopicName: TStringField
       FieldKind = fkLookup
@@ -149,7 +145,7 @@ object DataModule2: TDataModule2
     UpdateOptions.EnableUpdate = False
     TableName = 'topic'
     Left = 512
-    Top = 136
+    Top = 160
   end
   object Topic: TFDQuery
     Connection = FDConnection
@@ -211,5 +207,10 @@ object DataModule2: TDataModule2
     Connection = FDConnection
     Left = 264
     Top = 368
+  end
+  object dsTop: TDataSource
+    DataSet = Top
+    Left = 520
+    Top = 104
   end
 end

@@ -44,6 +44,7 @@ type
     DictSpot: TBooleanField;
     DictTopic: TIntegerField;
     DictTopicName: TStringField;
+    dsTop: TDataSource;
     procedure vokabAfterRefresh(DataSet: TDataSet);
     procedure synchAfterOpen(DataSet: TDataSet);
     function loadDB(dbPath:string):boolean;
