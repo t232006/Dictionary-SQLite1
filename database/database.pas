@@ -92,8 +92,7 @@ begin
     Top.Active:=true;
     Topic.Active:=true;
     selectsel.Active:=true;
-    if Dict.RecordCount>=6 then
-    startexercises  else form1.PagesBlock(true);
+    if Dict.RecordCount<6 then form1.PagesBlock(true);
     result:=true;
    end
    else result:=false;

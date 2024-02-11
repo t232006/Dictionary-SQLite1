@@ -20,7 +20,7 @@ type
 
 
 implementation
-uses MainForm, Database, basemanipulation, lesson4, lessons, PoBukvam, cardsUnit;
+uses MainForm, Database, basemanipulation;
 
 procedure finishExercises;
 begin
@@ -33,11 +33,7 @@ end;
 
 procedure startExercises;
 begin
-  test:=TTest.create(6);
-  poBukv:=TPoBukvam.create;
-  complience:= Tcomplience.Create(6);
-  YesNo:=TYesNo.Create(1);
-  cards:=Tcards.create(12);
+
 end;
 
 function GetSpecialPath(CSIDL: word): string;
