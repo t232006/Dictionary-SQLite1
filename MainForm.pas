@@ -593,11 +593,11 @@ begin
   0:
   begin
       try
-        //test.recreate:=true;
-        //poBukv.recreate:=true;
-        //complience.recreate:=true;
-        //YesNo.recreate:=true;
-        //cards.recreate:=true;
+        {test.recreate:=true;
+        poBukv.recreate:=true;
+        complience.recreate:=true;
+        YesNo.recreate:=true;
+        cards.recreate:=true;}
       finally
 
       end;
@@ -605,38 +605,38 @@ begin
   1:
   begin
       //test:=TTest.create(6);
-      if test.recreate then
-      begin
+      //if test.recreate then
+      //begin
         test.Free;
         test:=TTest.create(6);
-      end;
+      //end;
       InitSlovoPer;
   end;
   2:
   begin
-      if test.recreate then
-      begin
+      //if test.recreate then
+      //begin
         test.Free;
         test:=TTest.create(6);
-      end;
+      //end;
       InitPerevodSlo;
   end;
   3:
   begin
-    if poBukv.recreate then
-    begin
+    //if poBukv.recreate then
+    //begin
       poBukv.Free;
       poBukv:=TPoBukvam.create;
-    end;
+    //end;
     InitPobukvam;
   end;
   4:
   begin
-    if complience.recreate then
-    begin
+    //if complience.recreate then
+    //begin
       complience.Free;
       complience:= Tcomplience.Create(6);
-    end;
+    //end;
       complience.Init;
     for t:=1 to 6 do
     begin
@@ -674,11 +674,11 @@ begin
             Frame211.Visible:=true;
                   Frame212.Visible:=true;
     end;
-    if cards.recreate then
-    begin
+    //if cards.recreate then
+    //begin
       cards.Free;
       cards:=Tcards.create(t1);
-    end;
+    //end;
       cards.Init(t1);
     for t:=1 to t1 do
     begin
@@ -1192,6 +1192,7 @@ begin
   end;
   stBar.Tag:=0; //no error
   Dpot.Parent:=StBar;
+
   //startexercises;
   //-------------------------------
   //pb.canvas.Brush.color:=clwhite;
@@ -1519,8 +1520,8 @@ begin
    with DM2.Dict do
   begin
     case column.Index of
-      0: if IndexName='wordind' then IndexName:='WordIndD'
-      else IndexName:='wordind';
+      0:  if IndexName='WordInd' then IndexName:='WordIndD'
+      else IndexName:='WordInd';
       1: if IndexName='TranslationInd' then IndexName:='TranslationIndD'
       else IndexName:='TranslationInd';
       2: if IndexName='DateRecInd' then IndexName:='DateRecD'

@@ -61,79 +61,10 @@ object DataModule2: TDataModule2
   object FDConnection: TFDConnection
     Params.Strings = (
       'DriverID=SQLite')
+    Connected = True
     LoginPrompt = False
     Left = 536
     Top = 24
-  end
-  object Dict1: TFDTable
-    AfterInsert = Dict1AfterInsert
-    AfterDelete = Dict1AfterInsert
-    Filtered = True
-    IndexFieldNames = 'Number'
-    Connection = FDConnection
-    ResourceOptions.AssignedValues = [rvEscapeExpand]
-    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate, uvAutoCommitUpdates]
-    UpdateOptions.AutoCommitUpdates = True
-    TableName = 'Dict'
-    Left = 560
-    Top = 160
-    object Dict1Number: TFDAutoIncField
-      FieldName = 'Number'
-      Origin = 'Number'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object Dict1Word: TWideStringField
-      FieldName = 'Word'
-      Origin = 'Word'
-      Required = True
-      Size = 32767
-    end
-    object Dict1Translation: TWideStringField
-      FieldName = 'Translation'
-      Origin = 'Translation'
-      Required = True
-      Size = 32767
-    end
-    object Dict1Topic: TIntegerField
-      FieldName = 'Topic'
-      Origin = 'Topic'
-      Required = True
-    end
-    object Dict1DateRec: TDateField
-      FieldName = 'DateRec'
-      Origin = 'DateRec'
-    end
-    object Dict1Score: TSmallintField
-      FieldName = 'Score'
-      Origin = 'Score'
-    end
-    object Dict1Usersel: TBooleanField
-      FieldName = 'Usersel'
-      Origin = 'Usersel'
-      DisplayValues = ' '
-    end
-    object Dict1Phrase: TBooleanField
-      FieldName = 'Phrase'
-      Origin = 'Phrase'
-    end
-    object Dict1Relevation: TIntegerField
-      FieldName = 'Relevation'
-      Origin = 'Relevation'
-    end
-    object Dict1Spot: TBooleanField
-      FieldName = 'Spot'
-      Origin = 'Spot'
-    end
-    object Dict1TopicName: TStringField
-      FieldKind = fkLookup
-      FieldName = 'TopicName'
-      LookupDataSet = Top
-      LookupKeyFields = 'id'
-      LookupResultField = 'Name'
-      KeyFields = 'Topic'
-      Lookup = True
-    end
   end
   object Top: TFDTable
     IndexFieldNames = 'id'
@@ -217,19 +148,103 @@ object DataModule2: TDataModule2
     AfterInsert = Dict1AfterInsert
     AfterDelete = Dict1AfterInsert
     Filtered = True
+    Indexes = <
+      item
+        Active = True
+        Selected = True
+        Name = 'WordInd'
+        Fields = 'Word'
+      end
+      item
+        Active = True
+        Name = 'WordIndD'
+        Fields = 'Word'
+        DescFields = 'Word'
+      end
+      item
+        Active = True
+        Name = 'TranslationInd'
+        Fields = 'Translation'
+      end
+      item
+        Active = True
+        Name = 'TranslationIndD'
+        Fields = 'Translation'
+        DescFields = 'Translation'
+      end
+      item
+        Active = True
+        Name = 'DateRecInd'
+        Fields = 'DateRec'
+      end
+      item
+        Active = True
+        Name = 'DateRecD'
+        Fields = 'DateRec'
+        DescFields = 'DateRec'
+      end
+      item
+        Active = True
+        Name = 'topicind'
+        Fields = 'TopicName'
+      end
+      item
+        Active = True
+        Name = 'TopicIndD'
+        Fields = 'TopicName'
+        DescFields = 'TopicName'
+      end
+      item
+        Active = True
+        Name = 'UserselInd'
+        Fields = 'Usersel'
+      end
+      item
+        Active = True
+        Name = 'UserselIndD'
+        Fields = 'Usersel'
+        DescFields = 'Usersel'
+      end
+      item
+        Active = True
+        Name = 'ScoreInd'
+        Fields = 'Score'
+      end
+      item
+        Active = True
+        Name = 'ScoreIndD'
+        Fields = 'Score'
+        DescFields = 'DateRec'
+      end
+      item
+        Active = True
+        Name = 'RelInd'
+        Fields = 'Relevation'
+      end
+      item
+        Active = True
+        Name = 'RelIndD'
+        Fields = 'Relevation'
+        DescFields = 'Relevation'
+      end>
+    IndexName = 'WordInd'
     DetailFields = 
       'Number;Word;Translation;Topic;Usersel;DateRec;Phrase;Relevation;' +
       'Score;Spot;TopicName'
     Connection = FDConnection
-    UpdateOptions.AssignedValues = [uvAutoCommitUpdates]
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate, uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     SQL.Strings = (
       
         'Select Number, Word, Translation, Topic, DateRec, Relevation, Sc' +
         'ore, Usersel, Spot, Phrase, Name as TopicName'
       'from Dict inner join Topic on Dict.Topic=Topic.ID')
-    Left = 584
-    Top = 232
+    Left = 560
+    Top = 168
     object DictNumber: TFDAutoIncField
       FieldName = 'Number'
       Origin = 'Number'

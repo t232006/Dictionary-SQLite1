@@ -37,13 +37,20 @@ var no:integer;
 begin
    with DM2.Dict do
    begin
-      no:=RecNo;  //остаться на старой записи
+      //no:=RecNo;  //остаться на старой записи
       //_sort:=Sort;
-      Active:=false;
+      //Active:=false;
+      if op=false then
+      begin
+        cancel;
+        next;
+        Prior;
+      end;
+
       UpdateOptions.ReadOnly :=not(op);//если редактировать, то не только чтение
-      Active:=true;
+      //Active:=true;
       //Sort:=_sort;
-      RecNo:=no;
+      //RecNo:=no;
    end;
 end;
 
