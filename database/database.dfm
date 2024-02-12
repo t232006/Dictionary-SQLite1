@@ -31,6 +31,7 @@ object DataModule2: TDataModule2
       'DriverID=SQLite')
     FormatOptions.AssignedValues = [fvADOCompatibility]
     FormatOptions.ADOCompatibility = True
+    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 24
@@ -64,69 +65,67 @@ object DataModule2: TDataModule2
     Left = 536
     Top = 24
   end
-  object Dict: TFDTable
-    AfterInsert = DictAfterInsert
-    AfterDelete = DictAfterDelete
+  object Dict1: TFDTable
+    AfterInsert = Dict1AfterInsert
+    AfterDelete = Dict1AfterInsert
     Filtered = True
     IndexFieldNames = 'Number'
     Connection = FDConnection
     ResourceOptions.AssignedValues = [rvEscapeExpand]
-    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
-    UpdateOptions.EnableDelete = False
-    UpdateOptions.EnableInsert = False
-    UpdateOptions.EnableUpdate = False
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate, uvAutoCommitUpdates]
+    UpdateOptions.AutoCommitUpdates = True
     TableName = 'Dict'
     Left = 560
     Top = 160
-    object DictNumber: TFDAutoIncField
+    object Dict1Number: TFDAutoIncField
       FieldName = 'Number'
       Origin = 'Number'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object DictWord: TWideStringField
+    object Dict1Word: TWideStringField
       FieldName = 'Word'
       Origin = 'Word'
       Required = True
       Size = 32767
     end
-    object DictTranslation: TWideStringField
+    object Dict1Translation: TWideStringField
       FieldName = 'Translation'
       Origin = 'Translation'
       Required = True
       Size = 32767
     end
-    object DictTopic: TIntegerField
+    object Dict1Topic: TIntegerField
       FieldName = 'Topic'
       Origin = 'Topic'
       Required = True
     end
-    object DictDateRec: TDateField
+    object Dict1DateRec: TDateField
       FieldName = 'DateRec'
       Origin = 'DateRec'
     end
-    object DictScore: TSmallintField
+    object Dict1Score: TSmallintField
       FieldName = 'Score'
       Origin = 'Score'
     end
-    object DictUsersel: TBooleanField
+    object Dict1Usersel: TBooleanField
       FieldName = 'Usersel'
       Origin = 'Usersel'
       DisplayValues = ' '
     end
-    object DictPhrase: TBooleanField
+    object Dict1Phrase: TBooleanField
       FieldName = 'Phrase'
       Origin = 'Phrase'
     end
-    object DictRelevation: TIntegerField
+    object Dict1Relevation: TIntegerField
       FieldName = 'Relevation'
       Origin = 'Relevation'
     end
-    object DictSpot: TBooleanField
+    object Dict1Spot: TBooleanField
       FieldName = 'Spot'
       Origin = 'Spot'
     end
-    object DictTopicName: TStringField
+    object Dict1TopicName: TStringField
       FieldKind = fkLookup
       FieldName = 'TopicName'
       LookupDataSet = Top
@@ -213,5 +212,78 @@ object DataModule2: TDataModule2
     DataSet = Top
     Left = 520
     Top = 104
+  end
+  object Dict: TFDQuery
+    AfterInsert = Dict1AfterInsert
+    AfterDelete = Dict1AfterInsert
+    Filtered = True
+    DetailFields = 
+      'Number;Word;Translation;Topic;Usersel;DateRec;Phrase;Relevation;' +
+      'Score;Spot;TopicName'
+    Connection = FDConnection
+    UpdateOptions.AssignedValues = [uvAutoCommitUpdates]
+    UpdateOptions.AutoCommitUpdates = True
+    SQL.Strings = (
+      
+        'Select Number, Word, Translation, Topic, DateRec, Relevation, Sc' +
+        'ore, Usersel, Spot, Phrase, Name as TopicName'
+      'from Dict inner join Topic on Dict.Topic=Topic.ID')
+    Left = 584
+    Top = 232
+    object DictNumber: TFDAutoIncField
+      FieldName = 'Number'
+      Origin = 'Number'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object DictWord: TWideStringField
+      FieldName = 'Word'
+      Origin = 'Word'
+      Required = True
+      Size = 32767
+    end
+    object DictTranslation: TWideStringField
+      FieldName = 'Translation'
+      Origin = 'Translation'
+      Required = True
+      Size = 32767
+    end
+    object DictTopic: TIntegerField
+      FieldName = 'Topic'
+      Origin = 'Topic'
+    end
+    object DictDateRec: TDateField
+      FieldName = 'DateRec'
+      Origin = 'DateRec'
+    end
+    object DictRelevation: TIntegerField
+      FieldName = 'Relevation'
+      Origin = 'Relevation'
+    end
+    object DictScore: TSmallintField
+      FieldName = 'Score'
+      Origin = 'Score'
+    end
+    object DictUsersel: TBooleanField
+      FieldName = 'Usersel'
+      Origin = 'Usersel'
+      DisplayValues = ' '
+    end
+    object DictSpot: TBooleanField
+      FieldName = 'Spot'
+      Origin = 'Spot'
+    end
+    object DictPhrase: TBooleanField
+      FieldName = 'Phrase'
+      Origin = 'Phrase'
+    end
+    object DictTopicName: TWideStringField
+      FieldKind = fkLookup
+      FieldName = 'TopicName'
+      LookupDataSet = Top
+      LookupKeyFields = 'id'
+      LookupResultField = 'Name'
+      KeyFields = 'Topic'
+      Lookup = True
+    end
   end
 end
