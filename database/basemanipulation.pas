@@ -32,8 +32,6 @@ type
 implementation
 
 procedure edittable(op:boolean);
-var no:integer;
-    _sort:widestring;
 begin
    with DM2.Dict do
    begin
