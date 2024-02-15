@@ -13,6 +13,7 @@ type
 
  TGeneral=class
      v:array of SlPerSl;  //заполнение массива отдельной процедурой
+     recreate:boolean;
      constructor Create(countrec:byte);
  end;
 
@@ -119,6 +120,7 @@ end;
 begin
 
     //---------------------------------------
+  recreate:=false;
   with DM2.Dict do
   begin
     Open;
