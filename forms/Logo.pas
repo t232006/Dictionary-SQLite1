@@ -7,12 +7,14 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls,
   Vcl.Imaging.pngimage, lesson4, lessons, PoBukvam, cardsUnit, MainForm;
 
+const MSG_PROGRESS = WM_USER+100;
 type
   TLogoForm = class(TForm)
-    ProgressBar1: TProgressBar;
+    pgb: TProgressBar;
+    Image1: TImage;
     procedure FormPaint(Sender: TObject);
   private
-    { Private declarations }
+    procedure onMyMessage(var msg: TMessage); message MSG_PROGRESS;
   public
 
   end;
@@ -27,28 +29,17 @@ implementation
 procedure TLogoForm.FormPaint(Sender: TObject);
 var arect:TRect;  BmpImage: TBitMap;
 begin
-    BmpImage:=TBitMap.Create;
+    {BmpImage:=TBitMap.Create;
     BmpImage.LOADFROMFILE('Dictionary.bmp');
     aRect:=Rect(0,0,275,256);
     Canvas.stretchDraw(aRect,BmpImage);
-    BmpImage.Destroy;
-    try
-      test:=TTest.create(6);
-      //if progressbar1.Position<100 then
+    BmpImage.Destroy;  }
+end;
 
-      //progressbar1.Position:=Progressbar1.position+20;
-      poBukv:=TPoBukvam.create;
-      //progressbar1.Position:=Progressbar1.position+20;
-      complience:= Tcomplience.Create(6);
-      //progressbar1.Position:=Progressbar1.position+20;
-      YesNo:=TYesNo.Create(1);
-      //progressbar1.Position:=Progressbar1.position+20;
-      cards:=Tcards.create(12);
-    except MessageDlg('Словарь не загружен! Проверьте правильность расположения словаря в настройках.',mtError,[mbOK],0);
-            Form1.PageControl1.ActivePageIndex:=7;
-    end;
-    ProgressBar1.Tag:=1;
-    //progressbar1.Position:=Progressbar1.position+20;
+procedure TLogoForm.onMyMessage(var msg: TMessage);
+begin
+  pgb.Position:=pgb.Position+msg.LParam;
+  if pgb.Position>=100 then pgb.Tag:=1;
 
 end;
 
