@@ -8,7 +8,7 @@ type arraydir = array[0..255] of char;
 TCmd = class
     private Programname, params, dir: string;
     public
-    Constructor Create(Programname, params, dir: String);
+    Constructor Create(Programname, params: String);
     function WinExecAndWait:cardinal;
     function RunCmd:string;
 end;
@@ -67,15 +67,15 @@ begin
    end;
 end;
 
-constructor TCmd.Create(Programname, params, dir: string);
-var WorkDir:string;
+constructor TCmd.Create(Programname, params: string);
+//var WorkDir:string;
 begin
      //self.params:=params;
-     GetDir(0,WorkDir);
-     self.ProgramName:=WorkDir+'\'+dir+'\'+ProgramName;
+     //GetDir(0,WorkDir);
+     self.ProgramName:=ProgramName;
      //self.Programname:=Programname;
-     self.dir:=dir;
-     self.params:=self.programName+' '+params;
+     //self.dir:=dir;
+     self.params:=params;
 end;
 
 function TCmd.WinExecAndWait:cardinal;
@@ -87,7 +87,7 @@ function TCmd.WinExecAndWait:cardinal;
      StartupInfo.cb:= Sizeof(StartupInfo);
      StartupInfo.dwFlags:= STARTF_USESHOWWINDOW;
      StartupInfo.wShowWindow:= SW_SHOW;
-     if not CreateProcess(nil,
+     if not CreateProcess(PChar(ProgramName),
       PChar(params),
       nil,
       nil,
