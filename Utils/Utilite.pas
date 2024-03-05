@@ -118,7 +118,7 @@ function TCmd.WinExecAndWait:cardinal;
        FillChar(StartupInfo,Sizeof(StartupInfo),#0);
      StartupInfo.cb:= Sizeof(StartupInfo);
      StartupInfo.dwFlags:= STARTF_USESHOWWINDOW;
-     StartupInfo.wShowWindow:= SW_SHOW;
+     StartupInfo.wShowWindow:= SW_HIDE;
      if not CreateProcess(PChar(ProgramName),
       PChar(params),
       nil,

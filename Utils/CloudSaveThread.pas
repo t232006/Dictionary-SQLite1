@@ -3,6 +3,8 @@ unit CloudSaveThread;
 interface
 uses Utilite, SysUtils, Classes, Controls, Forms, ShellAPI, Windows, messages;
 const CANCEL_CLOUD = WM_USER+110;
+       CONTINUE_CLOUD = WM_USER+120;
+
 type
   Tcloud = class
     public
@@ -15,6 +17,18 @@ TSaveThread = class(TThread)
   protected
   procedure Execute; override;
   procedure SaveProcess;
+end;
+
+TReadThread = class(TThread)
+  private
+  _FileNames: TStringList;
+  _FileIDs: TStringList;
+  _MaxLength: byte;
+  public
+   property FileNames: TStringList read _FileNames;
+   property FileIDs: TStringList read _FileIDs;
+   property MaxLength: byte read _MaxLength;
+  procedure Execute; override;
 end;
 
 TLoadThread = class(TThread)
@@ -80,6 +94,37 @@ begin
     Cloud:=Tcloud.Create();
     Cloud.SaveToCloud(DBDir);
     Cloud.Free;
+end;
+
+{ TReadThread }
+
+procedure TReadThread.Execute;
+const command=' client_secret.json';
+var cmd: TCmd;
+    s:string;
+    FilesList: TFilesList;
+    TempList: TStringList;
+begin
+  cmd:=Tcmd.Create('fileListfromdrive.exe', command);
+  s:= cmd.CmdScreen;
+
+  _FileIDs:=TStringList.Create;
+  _FileNames:=TStringList.Create;
+  FilesList:=TFilesList.Create;
+  TempList:=TStringList.Create;
+  TempList:=FilesList.getFilesList(s);
+  _MaxLength:=FilesList.MaxLength;
+  //shellexecute(0, 'open', 'fileListFromDrive.exe', Pchar(command), 'saver', SW_show);
+  var i:=0;
+  while i < (TempList.Count-1) do
+  begin
+    _FileNames.Add(TempList[i]); inc(i);
+    _FileIDs.Add(TempList[i]); inc(i);
+  end;
+  tempList.Destroy;
+  FilesList.Destroy;
+  SendMessage(getforegroundWindow, CONTINUE_CLOUD, 0,0); //create popup menu
+  SendMessage(getforegroundWindow, CANCEL_CLOUD, 0,0);  //cancel loading process
 end;
 
 end.

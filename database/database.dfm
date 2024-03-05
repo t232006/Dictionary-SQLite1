@@ -147,7 +147,6 @@ object DataModule2: TDataModule2
     AfterInsert = Dict1AfterInsert
     AfterDelete = Dict1AfterInsert
     Filtered = True
-    Filter = 'Phrase=true'
     Indexes = <
       item
         Active = True

@@ -8,7 +8,7 @@ uses
 
 type
   TManual = class(TForm)
-    WebBrowser1: TWebBrowser;
+    WebBrowser: TWebBrowser;
   private
     { Private declarations }
   public
